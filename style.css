@@ -1,3 +1,4 @@
+/* Estilos globales para resetear márgenes y paddings y definir fuente base */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,6 +6,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Fondo general con gradiente y centro del contenido */
 body {
   background: linear-gradient(135deg, #1d2b64, #f8cdda);
   height: 100vh;
@@ -12,6 +14,8 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+/* Título principal del juego */
 .titulo-juego {
   text-align: center;
   color: #fff;
@@ -24,7 +28,7 @@ body {
   transform: translateX(-50%);
 }
 
-
+/* Contenedor principal del juego */
 .game {
   background: rgba(255, 255, 255, 0.15);
   border-radius: 20px;
@@ -36,10 +40,12 @@ body {
   width: 100%;
 }
 
+/* Controles superiores (botones, etc.) */
 .controls {
   margin-bottom: 20px;
 }
 
+/* Estilo base de botones */
 button {
   padding: 10px 25px;
   font-size: 16px;
@@ -52,43 +58,57 @@ button {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Hover en botones */
 button:hover {
   background: #1d2b64;
   color: #fff;
 }
 
+/* Botón deshabilitado */
 button.disabled {
   background: #ccc;
   cursor: not-allowed;
 }
 
+/* Estadísticas del juego */
 .stats {
   margin-top: 10px;
   color: #fff;
   font-size: 18px;
 }
 
+/* Contenedor del tablero de cartas */
 .board-container {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  max-width: 100vw;
+  overflow-x: auto;
 }
 
+/* Tablero de juego con diseño grid adaptable */
 .board {
   display: grid;
-  gap: 15px;
-  justify-content: center;
-  align-items: center;
+  gap: 10px;
+  justify-content: start; /* NO center, para permitir desplazamiento hacia la izquierda */
+  align-content: start;   /* Para poder ir hacia arriba también */
+  padding: 10px;
+  box-sizing: border-box;
+  min-width: max-content; /* Expande el grid para permitir scroll horizontal completo */
+  min-height: max-content; /* Expande el grid para permitir scroll vertical completo */
 }
 
+
+/* Carta individual */
 .card {
   width: 100px;
   height: 100px;
-  perspective: 800px;
-  cursor: pointer;
 }
 
+/* Interior de la carta con animación */
 .card-inner {
   width: 100%;
   height: 100%;
@@ -97,10 +117,12 @@ button.disabled {
   transition: transform 0.6s;
 }
 
+/* Carta volteada */
 .card.flipped .card-inner {
   transform: rotateY(180deg);
 }
 
+/* Caras de la carta */
 .card-front,
 .card-back {
   width: 100%;
@@ -116,21 +138,53 @@ button.disabled {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Cara delantera */
 .card-front {
   background-color: #444;
 }
 
+/* Cara trasera con rotación */
 .card-back {
   transform: rotateY(180deg);
   background-color: #fff;
 }
 
+/* Imagen dentro de la carta */
 .card img {
   width: 80%;
   height: 80%;
   object-fit: contain;
 }
 
+/* Imagen de la cara trasera */
+.card-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* MEDIA QUERY para pantallas pequeñas como móviles */
+@media (max-width: 600px) {
+  /* Ajuste del tamaño de cartas para móviles */
+  .card {
+    width: 22vw;
+    height: 28vw;
+  }
+
+  /* Reducir tamaño de texto y botones si se desea */
+  .win {
+    padding: 20px;
+  }
+  .win-text {
+    font-size: 18px;
+  }
+  button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+/* Ventana de mensaje final (ganaste, perdiste, etc.) */
 .win {
   position: absolute;
   top: 50%;
@@ -145,15 +199,18 @@ button.disabled {
   z-index: 10;
 }
 
+/* Mostrar ventana de win si board-container tiene clase flipped */
 .board-container.flipped .win {
   display: block;
 }
 
+/* Texto de la ventana de win */
 .win-text {
   font-size: 24px;
   color: #333;
 }
 
+/* Destacar texto importante */
 .highlight {
   font-weight: bold;
   color: #1d2b64;
