@@ -47,12 +47,23 @@
     // Tomar imágenes aleatorias
     const pickRandom = (arr, count) => shuffle([...arr]).slice(0, count);
 
-    // Calcular filas y columnas según cantidad de cartas
-    const getGridDimensions = n => {
-      let cols = Math.ceil(Math.sqrt(n));
-      while (n % cols !== 0) cols++;
-      return [n / cols, cols];
-    };
+   // Calcular dimensiones para una cuadrícula casi cuadrada
+const getGridDimensions = n => {
+  // Empezamos desde la raíz cuadrada y buscamos factores
+  let bestRows = 1;
+  let bestCols = n;
+  for (let rows = 1; rows <= Math.sqrt(n); rows++) {
+    if (n % rows === 0) {
+      const cols = n / rows;
+      if (Math.abs(cols - rows) < Math.abs(bestCols - bestRows)) {
+        bestRows = rows;
+        bestCols = cols;
+      }
+    }
+  }
+  return [bestRows, bestCols];
+};
+
 
     // Mostrar mensaje de bienvenida por nivel
     const showWelcomeMessage = () => {
